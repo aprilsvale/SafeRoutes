@@ -16,7 +16,7 @@ import Admin from './pages/Admin';
 export default function App()
 {
     const [isAuth, setIsAuth] = useState(false);
-    const [role, setRole] = useState("admin");
+    const [role, setRole] = useState("null");
 
     const router = createBrowserRouter([
         {
@@ -27,8 +27,8 @@ export default function App()
                 {
                     path: 'profile',
                     element: (
-                        <ProtectedRoute isAuth={isAuth}>
-                            <Profile onLogout={() => setIsAuth(false)}/>
+                        <ProtectedRoute isAuth={isAuth} role={role}>
+                            <Profile onLogout={() => {setIsAuth(false); setRole("null")}} />
                         </ProtectedRoute>
                     ),
                 },
@@ -36,7 +36,7 @@ export default function App()
                     path: 'admin',
                     element: (
                         <AdminRoute role={role} isAuth={isAuth}>
-                            <Admin onLogout={() => setIsAuth(false)}/>
+                            <Admin onLogout={() => {setIsAuth(false); setRole("null")}}/>
                         </AdminRoute>
                     ),
                 },
